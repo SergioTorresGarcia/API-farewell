@@ -41,12 +41,7 @@
                     </thead>
                     <tbody>
                         {%  for person in persons %}
-                            {% if person.surname in persons %}
-                            <tr style="background: lightblue">
-                            {% else %}
-                            <tr style="background: #93c54b">
-                            {% endif %}
-
+                            <tr>
                             <td width="30%"><a href="/persons/{{ person.id }}">{{ person.name }} {{ person.surname }}</a></td>
 
                             {% if person.invited == True %}
