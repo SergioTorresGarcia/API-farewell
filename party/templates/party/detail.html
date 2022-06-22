@@ -1,0 +1,83 @@
+{% extends 'party/base.html' %}
+{% block content %}
+
+    {% if party is not None %}
+        <table class="blueTable">
+        <thead>
+            <tr>
+                <th>Party - ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>When</th>
+                <th>Where</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label style="color: #1b6d85"> {{ party.id }}</label></td>
+                <td><label style="color: #1b6d85"> {{ party.name }}</label></td>
+                <td><label style="color: #1b6d85"> {{ party.description }}</label></td>
+                <td><label> {{ party.when }}</label></td>
+                <td><label> {{ party.where }}</label></td>
+                <td>
+                    <form action="/edit_party/{{ party.id }}"><button type="submit">edit</button></form>
+                    <form action="/delete_party/{{ party.id }}"><button style="color: #761c19" type="submit">delete</button></form>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+            <br>
+        <table class="blueTable">
+        <thead>
+        <tr>
+            <th>People invited</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for person in persons %}
+            {% if person.party.id == party.id %}
+            <tr>
+                <td>{{ person.name }} {{ person.surname }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        </table>
+    {% endif %}
+
+    {% if person is not None %}
+        <table class="blueTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Party</th>
+                <th>Invited</th>
+                <th>Confirmed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label style="color: #1b6d85"> {{ person.name }} {{ person.surname }}</label></td>
+                <td><label style="color: #1b6d85"> {{ person.party.name }}</label></td>
+                <td><label> {{ person.invited }}</label></td>
+                {% if person.confirmed == True %}
+                    <td style="color: #4cae4c"><label> {{ person.confirmed }}</label></td>
+                {% else %}
+                    <td style="color: #761c19"><label> {{ person.confirmed }}</label></td>
+                {% endif %}
+                <td>
+                    <form action="/edit_person/{{ person.id }}"><button type="submit">edit</button></form>
+                    <form action="/delete_person/{{ person.id }}"><button style="color: #761c19" type="submit">delete</button></form>
+                </td>
+            </tr>
+            {% if person.note != "" %}
+                <tr><th colspan="5">{{ person.note }}</th></tr>
+            {% endif %}
+        </tbody>
+        </table>
+
+    {% endif %}
+{% endblock %}
+

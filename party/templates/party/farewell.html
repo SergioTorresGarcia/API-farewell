@@ -1,0 +1,93 @@
+{% extends 'party/base.html' %}
+{% block content %}
+
+        {% if parties is not None %}
+            <form action="/parties/">
+                <table class="blueTable">
+
+                    <thead style="color: #1b6d85">
+                        <tr>
+                            <th>PARTY</th>
+                            <th>WHEN</th>
+                            <th>WHERE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%  for party in parties %}
+                            <tr>
+                            <td width="34%"><a href="/parties/{{ party.id }}">{{ party.name }}</a></td>
+                            <td width="33%">{{ party.when }}</td>
+                            <td width="33%">{{ party.where }}</td>
+                            <tr>
+                        {% endfor %}
+                        <td colspan="3" style="color: #1b6d85; background: #DDDDDD"><a href="/add_party/">[+] add new</a></td>
+                    </tbody>
+                </table><br>
+            </form>
+        {% endif %}
+
+        {% if persons is not None %}
+            <form action="/persons/">
+                <table class="blueTable">
+                    <thead style="color: #1b6d85">
+                        <tr>
+                            <th width="30%">PERSON</th>
+                            <th>INV.</th>
+                            <th>CONF.</th>
+                            {% for party in parties %}
+                            <th>{{ party.name }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%  for person in persons %}
+                            {% if person.surname in persons %}
+                            <tr style="background: lightblue">
+                            {% else %}
+                            <tr style="background: #93c54b">
+                            {% endif %}
+
+                            <td width="30%"><a href="/persons/{{ person.id }}">{{ person.name }} {{ person.surname }}</a></td>
+
+                            {% if person.invited == True %}
+                                <td style="color: #3e8f3e" width="15%">{{ person.invited }}</td>
+                            {% else %}
+                                <td style="color: #761c19" width="15%">{{ person.invited }}</td>
+                            {% endif %}
+
+                            {% if person.confirmed == True %}
+                                <td style="background:rgba(76,174,76,0.35); color: #3e8f3e" width="15%">{{ person.confirmed }}</td>
+                            {% else %}
+                                <td style="background:rgba(222,84,84,0.3); color: #761c19" width="15%">{{ person.confirmed }}</td>
+                            {% endif %}
+
+                            {% if person.party.name == "Just Kids" %}
+                                <td>X</td> <td></td> <td></td> <td></td>
+                            {% elif person.party.name == "All Friends" %}
+                                <td></td> <td>X</td> <td></td> <td></td>
+                            {% elif person.party.name == "Family" %}
+                                <td></td> <td></td> <td>X</td> <td></td>
+                            {% elif person.party.name == "Other" %}
+                                <td></td> <td></td> <td></td> <td>{{ person.note }}</td>
+                            {% endif %}
+                        {% endfor %}
+
+                            <tr style="background: #cccccc; color: #3f8db4">
+                                <td colspan="3">SUMA</td>
+                                <td>{{ sum_kids }} out of {{ inv_people_kids }}</td>
+                                <td>{{ sum_fri }} out of {{ inv_people_fri }}</td>
+                                <td>{{ sum_fam }} out of {{ inv_people_fam }}</td>
+                                <td>{{ sum_rest }} out of {{ inv_people_rest }}</td>
+                            </tr>
+                        <td colspan="10" style="color: #1b6d85; background: #DDDDDD"><a href="/add_person/">[+] add new</a></td>
+
+                    </tbody>
+                </table>
+            </form>
+
+        {% endif %}
+
+{% endblock %}
+
+
+

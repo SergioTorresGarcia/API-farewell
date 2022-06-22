@@ -1,0 +1,8 @@
+    <h3 style="color: #1b6d85">Edit item</h3>
+    <form enctype="multipart/form-data" method="post" action="" class="form_class">
+        {% csrf_token %}
+        {{ form.as_p }}<br>
+        <input type="submit" value="OK" style="background: #3f8db4; color: #FFFFFF">
+    </form>
+
+

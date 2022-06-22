@@ -1,0 +1,54 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="{% static 'table.css' %}">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Farewell</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+        <div class="wrapper">
+            <div class="sidebar">
+                <h2>MENU</h2>
+                <ul>
+                    <li><a class="fas" href="/">Home</a></li>
+                    <li><a class="fas" href="/add_party/">Add_new_party</a></li>
+                    <li><a class="fas" href="/add_person/">Add_new_person</a></li>
+                    <li><a class="fas" href="/api/">API_all_data</a></li>
+                    <li><a class="fas" href="/api/parties">API_parties</a></li>
+                    <li><a class="fas" href="/api/persons">API_persons</a></li>
+
+                </ul>
+            </div>
+
+            <div class="main_content">
+                <div class="info">
+                    <h2 style="color: #1b6d85">THE TORRES-LEMPART FAREWELL SCHEDULE :)</h2></div>
+                    <div class="container">
+                        {% block content %}
+
+
+
+
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use any element to open the sidenav -->
+        <span onclick="openNav()">open</span>
+
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+          ...
+        </div>
+
+</body>
+</html>
